@@ -1,2 +1,0 @@
-# kachelin-frontend
-SPARCS Project
