@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import './auth-modal.scss';
 import ReactTransitionGroup from 'react-addons-css-transition-group';
-
+import axios from 'axios';
 
 const Login = styled.div`
     background: rgb(29,189,242);
@@ -51,12 +51,34 @@ const Register = styled.div`
 
 class Modal extends React.Component {
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       id: null,
-      password: null
+      password: null,
+      register_id: null,
+      register_email: null,
+      register_password: null,
+      register_password2: null,
+      mode: 'login'
     }
+    this.register = this.register.bind(this)
+  }
+
+  register() {
+    axios.post('https://kachelin-backend.now.sh/rest-auth/registration/', {
+      username: this.state.register_id,
+      email: this.state.register_email,
+      password1: this.state.register_password1,
+      password2: this.state.register_password2
+    })
+    .then(response => { console.log(response)})
   }
   render() {
     return (
@@ -71,11 +93,18 @@ class Modal extends React.Component {
           <div className="Modal-overlay" onClick={this.props.close} />
           <div className="Modal">
             <p className="title">로그인</p>
-            <div className="content">
-              <input type="text" value={this.state.id} placeholder="ID"/>
-              <input type="password" value={this.state.password} placeholder="PASSWORD"/>
+            <div className="content login">
+              <input type="text" name="id" value={this.state.id} onChange={this.handleChange} placeholder="ID" />
+              <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="PASSWORD"/>
               <Login>로그인</Login>
-              <Register>회원가입</Register>
+            </div>
+            <p className="title">회원가입</p>
+            <div className="content login">
+              <input type="text" name="register_id" value={this.state.register_id} onChange={this.handleChange} placeholder="ID"/>
+              <input type="email" name="register_email" value={this.state.register_email} onChange={this.handleChange} placeholder="EMAIL"/>
+              <input type="password" name="register_password1" value={this.state.register_password1} onChange={this.handleChange} placeholder="PASSWORD"/>
+              <input type="password" name="register_password2" value={this.state.register_password2} onChange={this.handleChange} placeholder="RETYPE PASSWORD"/>
+              <Register onClick={this.register}>회원가입</Register>
             </div>
           </div>
         </ReactTransitionGroup>
