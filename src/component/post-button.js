@@ -18,6 +18,7 @@ const Box = styled.div`
     padding: 15px 25px 15px 25px;
     text-shadow: 1px 5px 7px rgba(255,255,255, .17);
     transition: 0.2s;
+    user-select: none;
     &:hover {
         transform: scale(1.05);
         box-shadow: 0px 40px 75px -50px rgba(0,0,0,0.55);
