@@ -4,6 +4,7 @@ import './auth-modal.scss';
 import ReactTransitionGroup from 'react-addons-css-transition-group';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { api } from '../../api'
 import axios from 'axios';
 
 const Login = styled.div`
@@ -80,6 +81,7 @@ class Modal extends React.Component {
     })
     .then(response => {
       let jwt = response.data.token;
+      api.defaults.headers.common['authorization'] = 'JWT ' + jwt; 
       localStorage.setItem("access_koten", jwt);
       this.setState({
         id: null,
