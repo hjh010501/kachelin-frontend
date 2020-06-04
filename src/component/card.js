@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Reviews from './reviews';
+import AddReview from './add-review';
 
 const Box = styled.div`
     background: #fff;
@@ -18,15 +20,14 @@ const Box = styled.div`
 
 class Card extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <Box>
                 <h1><b>{this.props.name}</b></h1>
+                <h4>{this.props.location}</h4>
                 <h3>{this.props.content}</h3>
+                <Reviews reviews={this.props.reviews}></Reviews>
+                <AddReview restaurant={this.props.restaurant} onSubmit={this.props.onSubmit}></AddReview>
             </Box>
         );
     }

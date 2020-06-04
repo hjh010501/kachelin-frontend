@@ -7,4 +7,11 @@ const api = axios.create({
     }
 });
 
-export default api;
+const api_no_auth = axios.create({
+    baseURL: 'https://kachelin-backend.now.sh/api/'
+});
+
+export {
+    api,
+    api_no_auth
+}

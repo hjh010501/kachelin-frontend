@@ -53,6 +53,7 @@
     "react-dom": "^16.13.1",
     "react-naver-maps": "^0.0.13",
     "react-router-dom": "^5.2.0",
+    "react-stars": "^2.2.5",
     "react-toastify": "^6.0.5",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",

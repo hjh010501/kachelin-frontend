@@ -79,9 +79,13 @@ class Modal extends React.Component {
       password: this.state.password,
     })
     .then(response => {
-      console.log(response);
       let jwt = response.data.token;
       localStorage.setItem("access_koten", jwt);
+      this.setState({
+        id: null,
+        password: null
+      })
+      this.props.close()
       toast.success("로그인을 완료하였습니다!", {
         position: "bottom-right",
         autoClose: 3000,
@@ -97,7 +101,6 @@ class Modal extends React.Component {
       password2: this.state.register_password2
     })
     .then(response => {
-      console.log(response);
       toast.success("회원가입을 성공하였습니다!", {
         position: "bottom-right",
         autoClose: 3000,

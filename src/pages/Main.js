@@ -1,8 +1,9 @@
 import React from 'react';
-import { RenderAfterNavermapsLoaded, NaverMap } from 'react-naver-maps'; // 패키지 불러오기
+import { RenderAfterNavermapsLoaded, NaverMap, Marker } from 'react-naver-maps';
 import Dashboard from '../component/dashboard'
 import LoginModal from '../component/auth-modal/auth-modal'
 import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 
 const TopMenu = styled.div`
     background: transparent;
@@ -45,7 +46,8 @@ function NaverMapAPI() {
       }}
       defaultCenter={{ lat: 36.3715433, lng: 127.361 }}
       defaultZoom={16}
-    />
+    >
+    </NaverMap>
   );
 }
 
@@ -76,9 +78,10 @@ class Main extends React.Component {
         </div>
         <LoginModal isOpen={this.state.isModalOpen} close={this.closeModal} />
         <Dashboard></Dashboard>
-        <TopMenu onClick={this.openModal}>
-          <Login>로그인</Login>
+        <TopMenu>
+          <Login onClick={this.openModal}>로그인</Login>
         </TopMenu>
+        <ToastContainer />
       </div>
     );
   }
