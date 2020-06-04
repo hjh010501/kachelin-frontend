@@ -17,11 +17,16 @@ const Box = styled.div`
 `;
 
 class Card extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
+
     render() {
         return (
             <Box>
-                <h1><b>새내기라 잘 몰라요ㅜㅜ</b></h1>
-                <h3>하지만 영어캠프때 먹은 캠포는 진짜 레전드다... ㄹㅇ 불갈비토스트와 바나나쉐이크의 조합은 카이마루 세계관 최강자다</h3>
+                <h1><b>{this.props.name}</b></h1>
+                <h3>{this.props.content}</h3>
             </Box>
         );
     }

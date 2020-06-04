@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import './auth-modal.scss';
 import ReactTransitionGroup from 'react-addons-css-transition-group';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const Login = styled.div`
@@ -65,10 +67,26 @@ class Modal extends React.Component {
       register_id: null,
       register_email: null,
       register_password: null,
-      register_password2: null,
-      mode: 'login'
+      register_password2: null
     }
     this.register = this.register.bind(this)
+    this.login = this.login.bind(this)
+  }
+
+  login() {
+    axios.post('https://kachelin-backend.now.sh/rest-auth/login/', {
+      username: this.state.id,
+      password: this.state.password,
+    })
+    .then(response => {
+      console.log(response);
+      let jwt = response.data.token;
+      localStorage.setItem("access_koten", jwt);
+      toast.success("로그인을 완료하였습니다!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    })
   }
 
   register() {
@@ -78,7 +96,13 @@ class Modal extends React.Component {
       password1: this.state.register_password1,
       password2: this.state.register_password2
     })
-    .then(response => { console.log(response)})
+    .then(response => {
+      console.log(response);
+      toast.success("회원가입을 성공하였습니다!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    })
   }
   render() {
     return (
@@ -96,7 +120,7 @@ class Modal extends React.Component {
             <div className="content login">
               <input type="text" name="id" value={this.state.id} onChange={this.handleChange} placeholder="ID" />
               <input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="PASSWORD"/>
-              <Login>로그인</Login>
+              <Login onClick={this.login}>로그인</Login>
             </div>
             <p className="title">회원가입</p>
             <div className="content login">
@@ -107,6 +131,7 @@ class Modal extends React.Component {
               <Register onClick={this.register}>회원가입</Register>
             </div>
           </div>
+          <ToastContainer />
         </ReactTransitionGroup>
         :
         <ReactTransitionGroup transitionName={'Modal-anim'} transitionEnterTimeout={200}  transitionLeaveTimeout={200} /> }
