@@ -5,7 +5,7 @@ SPARCS Project
 ```
 yarn install
 yarn start
-```
+```ㅁ
 
 ## SPEC
 - React
